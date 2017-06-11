@@ -1,25 +1,26 @@
 package xyz.jeevan.api.exception;
 
 public class ValidationError {
-	private String fieldName;
 
-	private String errorMessage;
+  private String fieldName;
 
-	public ValidationError(String fieldName, String errorMessage) {
-		this.fieldName = fieldName;
-		this.errorMessage = errorMessage;
-	}
+  private String errorMessage;
 
-	public String getFieldName() {
-		return fieldName;
-	}
+  public ValidationError(String fieldName, String errorMessage) {
+    this.fieldName = fieldName;
+    this.errorMessage = errorMessage;
+  }
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+  public String getFieldName() {
+    return fieldName;
+  }
 
-	@Override
-	public String toString() {
-		return " { fieldName : " + this.fieldName + ", errorMessage : " + this.errorMessage + " }";
-	}
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  @Override
+  public String toString() {
+    return " { fieldName : " + this.fieldName + ", errorMessage : " + this.errorMessage + " }";
+  }
 }

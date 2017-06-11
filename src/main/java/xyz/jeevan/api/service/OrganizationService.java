@@ -10,16 +10,11 @@ public interface OrganizationService {
 
   /**
    * Method to save an organization data.
-   * @param org
-   * @return
    */
   Organization save(Organization org);
 
   /**
    * This method fetches the organization data by id.
-   *
-   * @param id
-   * @return
    */
   Organization getById(String id);
 }

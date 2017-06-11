@@ -1,7 +1,5 @@
 package xyz.jeevan.api.utils;
 
-import java.util.Arrays;
-import java.util.List;
 import org.springframework.util.StringUtils;
 
 /**
@@ -9,11 +7,12 @@ import org.springframework.util.StringUtils;
  */
 public final class AttributeProvider {
 
-  private AttributeProvider() {}
+  private AttributeProvider() {
+  }
 
   public static String[] provideFields(final String entity, final String fields) {
     // if fields is * or empty, return only default fields
-    if(AppConstants.ASTERISK.equals(fields) || StringUtils.isEmpty(fields)) {
+    if (AppConstants.ASTERISK.equals(fields) || StringUtils.isEmpty(fields)) {
       return FieldConstants.defaultEntityFields.get(entity);
     }
 

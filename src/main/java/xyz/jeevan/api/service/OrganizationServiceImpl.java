@@ -11,7 +11,6 @@ import xyz.jeevan.api.exception.ValidationError;
 import xyz.jeevan.api.exception.ValidationException;
 import xyz.jeevan.api.repository.OrganizationRepository;
 import xyz.jeevan.api.utils.DateUtil;
-import xyz.jeevan.api.utils.FieldConstants;
 import xyz.jeevan.api.utils.UniqueIdGenerator;
 import xyz.jeevan.api.validator.OrganizationValidator;
 
@@ -21,7 +20,9 @@ import xyz.jeevan.api.validator.OrganizationValidator;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-  private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(OrganizationServiceImpl.class);
+
+  private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory
+      .getLogger(OrganizationServiceImpl.class);
 
   @Autowired
   private OrganizationRepository orgRepo;
@@ -46,7 +47,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     Assert.notNull(id, "Organization id can not be empty.");
 
     Organization org = orgRepo.findOne(id);
-    if(org == null) {
+    if (org == null) {
       throw new ApplicationException(ErrorResponseEnum.ENTITY_NOT_FOUND);
     }
 

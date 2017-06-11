@@ -12,7 +12,9 @@ import xyz.jeevan.api.utils.AppConstants;
  * Created by jeevan on 10/6/17.
  */
 public final class OrganizationValidator {
-  private OrganizationValidator() {}
+
+  private OrganizationValidator() {
+  }
 
   public static List<ValidationError> validateOrganizationData(final Organization organization) {
     List<ValidationError> validationErrorList = new ArrayList<>();
