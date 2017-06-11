@@ -8,4 +8,5 @@ public final class AppConstants {
 	public static final String STATUS = "status";
 	public static final String CONTACT = "contact";
 	public static final String EMAIL = "email";
+	public static final String ASTERISK = "*";
 }
