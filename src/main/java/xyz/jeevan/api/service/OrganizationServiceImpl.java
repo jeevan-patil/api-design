@@ -8,8 +8,10 @@ import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
+import xyz.jeevan.api.exception.ValidationErrorType;
 import xyz.jeevan.api.exception.ValidationException;
 import xyz.jeevan.api.repository.OrganizationRepository;
+import xyz.jeevan.api.utils.AppConstants;
 import xyz.jeevan.api.utils.DateUtil;
 import xyz.jeevan.api.utils.UniqueIdGenerator;
 import xyz.jeevan.api.validator.OrganizationValidator;
@@ -33,6 +35,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     if (!validationErrorList.isEmpty()) {
       LOG.error("Could not create an organization due to insufficient data.");
       throw new ValidationException(validationErrorList, ErrorResponseEnum.VALIDATION_ERROR);
+    }
+
+    Organization existing = orgRepo.findByName(org.getName());
+    if(existing != null) {
+      throw new ApplicationException(ErrorResponseEnum.ENTITY_EXISTS);
     }
 
     org.setId(UniqueIdGenerator.generate());

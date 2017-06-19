@@ -13,7 +13,8 @@ public enum ErrorResponseEnum {
   VALIDATION_ERROR(101, "There was one or more validation error(s)", HttpStatus.BAD_REQUEST),
   INVALID_URL(102, "Invalid url, request not found", HttpStatus.NOT_FOUND),
   ENTITY_NOT_FOUND(103, "The requested entity could not be found", HttpStatus.BAD_REQUEST),
-  FILE_UPLOAD_ERROR(104, "An exception has occured while uploading file.", HttpStatus.BAD_REQUEST);
+  FILE_UPLOAD_ERROR(104, "An exception has occured while uploading file.", HttpStatus.BAD_REQUEST),
+  ENTITY_EXISTS(105, "An entity already exists.", HttpStatus.BAD_REQUEST);
 
   private int code;
   private String errorText;

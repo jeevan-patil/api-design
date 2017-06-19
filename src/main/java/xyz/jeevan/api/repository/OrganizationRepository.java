@@ -11,4 +11,5 @@ import xyz.jeevan.api.domain.Organization;
 @Repository
 public interface OrganizationRepository extends MongoRepository<Organization, String> {
 
+  Organization findByName(String name);
 }
