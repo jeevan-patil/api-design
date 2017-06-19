@@ -30,5 +30,6 @@ dependencies {
 		exclude group:"org.slf4j", module:"slf4j-log4j12"
 		exclude group:"org.slf4j", module:"slf4j-api"
 	}
+	compile('org.apache.commons:commons-lang3:3.6')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

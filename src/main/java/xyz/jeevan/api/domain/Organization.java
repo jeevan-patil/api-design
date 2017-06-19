@@ -4,6 +4,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import xyz.jeevan.api.annotation.DefaultField;
 
 /**
  * Created by jeevan on 10/6/17.
@@ -13,19 +14,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Organization {
 
   @Id
+  @DefaultField
   private String id;
 
   @Indexed
+  @DefaultField
   private String name;
   private String logoUrl;
   private boolean active;
   private String contact;
-  private String address;
   private int employeeCount;
   private String website;
   private String email;
   private String facebookPage;
   private String twitterHandle;
+  private Address address;
   private Date createdAt;
   private Date updatedAt;
 
@@ -69,36 +72,20 @@ public class Organization {
     this.contact = contact;
   }
 
-  public Date getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public Date getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(Date updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
   public int getEmployeeCount() {
     return employeeCount;
   }
 
   public void setEmployeeCount(int employeeCount) {
     this.employeeCount = employeeCount;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
   }
 
   public String getEmail() {
@@ -125,11 +112,27 @@ public class Organization {
     this.twitterHandle = twitterHandle;
   }
 
-  public String getWebsite() {
-    return website;
+  public Address getAddress() {
+    return address;
   }
 
-  public void setWebsite(String website) {
-    this.website = website;
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

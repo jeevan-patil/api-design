@@ -12,10 +12,4 @@ public final class FieldConstants {
   }
 
   public static final String[] EXCLUDEALL_FIELDS = {"*"};
-  public static final String ORGANIZATION = "Organization";
-  private static String[] orgFields = {AppConstants.ID, AppConstants.NAME};
-
-  public static final Map<String, String[]> defaultEntityFields = new HashMap<String, String[]>() {{
-    put(ORGANIZATION, orgFields);
-  }};
 }

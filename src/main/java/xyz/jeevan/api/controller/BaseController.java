@@ -35,22 +35,22 @@ public class BaseController {
 
   protected <T> List<T> limitDataFields(List<T> data, Class<T> clazz, String fields) {
     return adjustFields(data, clazz, FieldConstants.EXCLUDEALL_FIELDS,
-        AttributeProvider.provideFields(clazz.getSimpleName(), fields));
+        AttributeProvider.provideFields(clazz, fields));
   }
 
   protected <T> List<T> limitDataFields(List<T> data, Class<T> clazz) {
     return adjustFields(data, clazz, FieldConstants.EXCLUDEALL_FIELDS,
-        AttributeProvider.provideFields(clazz.getSimpleName(), ""));
+        AttributeProvider.provideFields(clazz, ""));
   }
 
   protected <T> T limitDataFields(T data, Class<T> clazz, String fields) {
     return adjustFields(data, clazz, FieldConstants.EXCLUDEALL_FIELDS,
-        AttributeProvider.provideFields(clazz.getSimpleName(), fields));
+        AttributeProvider.provideFields(clazz, fields));
   }
 
   protected <T> T limitDataFields(T data, Class<T> clazz) {
     return adjustFields(data, clazz, FieldConstants.EXCLUDEALL_FIELDS,
-        AttributeProvider.provideFields(clazz.getSimpleName(), ""));
+        AttributeProvider.provideFields(clazz, ""));
   }
 
 }
