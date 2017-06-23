@@ -24,11 +24,15 @@ public class Organization {
   private boolean active;
   private String contact;
   private int employeeCount;
+
+  @DefaultField
+  private Address address;
+
+  @DefaultField
   private String website;
   private String email;
   private String facebookPage;
   private String twitterHandle;
-  private Address address;
   private Date createdAt;
   private Date updatedAt;
 
