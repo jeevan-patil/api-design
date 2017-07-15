@@ -8,11 +8,11 @@ public enum ValidationErrorType {
   USERNAME_TAKEN("USERNAME_TAKEN"),
   EMAIL_EXISTS("EMAIL_EXISTS");
 
+  private String errorType;
+
   ValidationErrorType(String errorType) {
     this.errorType = errorType;
   }
-
-  private String errorType;
 
   public String getErrorType() {
     return errorType;

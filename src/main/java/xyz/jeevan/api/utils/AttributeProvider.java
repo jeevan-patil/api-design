@@ -11,6 +11,7 @@ import xyz.jeevan.api.annotation.DefaultField;
 /**
  * Created by jeevan on 11/6/17.
  */
+
 public final class AttributeProvider {
 
   private AttributeProvider() {
@@ -35,7 +36,7 @@ public final class AttributeProvider {
     if (defaultFields != null) {
       for (Field field : defaultFields) {
         String fieldName = field.getName();
-        if (field.getType().getName().startsWith("xyz.jeevan.api")) {
+        if (isCustomObject(field)) {
           getDefaultFields(finalFields, field.getType(), fieldName);
         } else {
           fieldName = (!StringUtils.isEmpty(parentField)) ? parentField + "." + fieldName
@@ -45,4 +46,9 @@ public final class AttributeProvider {
       }
     }
   }
+
+  private static boolean isCustomObject(Field field) {
+    return field.getType().getName().startsWith("xyz.jeevan.api");
+  }
+
 }

@@ -7,3 +7,11 @@ spring:
 security:
   basic:
     enabled: false
+
+response:
+  default:
+    list:
+      size : 10
+  allowed:
+    list:
+      size: 100
