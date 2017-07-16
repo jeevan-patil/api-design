@@ -4,6 +4,8 @@ import static xyz.jeevan.api.utils.AppConstants.FIELDS;
 import static xyz.jeevan.api.utils.AppConstants.LIMIT;
 import static xyz.jeevan.api.utils.AppConstants.PAGE;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ import xyz.jeevan.api.utils.APIEndpoints;
  */
 
 @RestController
+@Api(value = "organizations")
 @RequestMapping(value = APIEndpoints.ORG_API_URL)
 public class OrganizationController extends BaseController {
 
@@ -48,6 +51,8 @@ public class OrganizationController extends BaseController {
   /**
    * API to fetch organization data by id and return required fields.
    */
+  @ApiOperation(value = "Fetch organization by id.",
+      notes = "Retrieves a single organization.", response = Organization.class)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Organization> getById(@PathVariable("id") final String id,
       @RequestParam(value = FIELDS, required = false) final String fields) {

@@ -31,5 +31,7 @@ dependencies {
         exclude group: "org.slf4j", module: "slf4j-api"
     }
     compile('org.apache.commons:commons-lang3:3.6')
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

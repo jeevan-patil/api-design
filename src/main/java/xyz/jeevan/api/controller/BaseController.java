@@ -4,6 +4,7 @@ import com.monitorjbl.json.JsonResult;
 import com.monitorjbl.json.JsonView;
 import com.monitorjbl.json.Match;
 import java.util.List;
+import springfox.documentation.annotations.ApiIgnore;
 import xyz.jeevan.api.domain.message.ResponseMessage;
 import xyz.jeevan.api.utils.AppConstants;
 import xyz.jeevan.api.utils.AttributeProvider;
@@ -12,6 +13,7 @@ import xyz.jeevan.api.utils.FieldConstants;
 /**
  * Created by jeevan on 11/6/17.
  */
+@ApiIgnore
 public class BaseController {
 
   private JsonResult json = JsonResult.instance();
