@@ -2,8 +2,6 @@ package xyz.jeevan.api.config;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -17,8 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Created by jeevan on 16/7/17.
+ * Swagger 2 configurations.
  */
-
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
