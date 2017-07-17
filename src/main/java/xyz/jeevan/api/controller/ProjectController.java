@@ -20,8 +20,8 @@ import xyz.jeevan.api.utils.APIEndpoints;
 @RequestMapping(value = APIEndpoints.PROJECT_API_URL)
 public class ProjectController extends BaseController {
 
-  @ApiOperation(value = "Fetch organization by id.",
-      notes = "Retrieves a single organization.", response = ResponseMessage.class)
+  @ApiOperation(value = "Fetch project by id.",
+      notes = "API to retrieve a single organization.", response = ResponseMessage.class)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ResponseMessage> delete(@PathVariable final String id) {
     return new ResponseEntity<>(success("You asked for project with id: " + id),

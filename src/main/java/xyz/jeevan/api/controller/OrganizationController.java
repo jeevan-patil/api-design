@@ -40,6 +40,8 @@ public class OrganizationController extends BaseController {
   /**
    * API to save an organization data and return required fields.
    */
+  @ApiOperation(value = "Create new organization.", notes = "API to create new organization.",
+      response = Organization.class)
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Organization> save(@RequestBody Organization organization) {
@@ -52,7 +54,7 @@ public class OrganizationController extends BaseController {
    * API to fetch organization data by id and return required fields.
    */
   @ApiOperation(value = "Fetch organization by id.",
-      notes = "Retrieves a single organization.", response = Organization.class)
+      notes = "API to retrieve a single organization.", response = Organization.class)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Organization> getById(@PathVariable("id") final String id,
       @RequestParam(value = FIELDS, required = false) final String fields) {
@@ -62,6 +64,7 @@ public class OrganizationController extends BaseController {
         HttpStatus.OK);
   }
 
+  @ApiOperation(value = "Delete an organization", notes = "API to delete an organization.", response = ResponseMessage.class)
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ResponseMessage> delete(@PathVariable final String id) {
     LOG.info("Delete an organization by id {}.", id);
@@ -70,6 +73,7 @@ public class OrganizationController extends BaseController {
         HttpStatus.OK);
   }
 
+  @ApiOperation(value = "Fetch list of organizations.", notes = "API to fetch organization list.", response = Organization.class)
   @RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Organization>> list(
       @RequestParam(value = PAGE, required = false) Integer page,
