@@ -1,4 +1,4 @@
-package xyz.jeevan.api.service;
+package xyz.jeevan.api.service.organization;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

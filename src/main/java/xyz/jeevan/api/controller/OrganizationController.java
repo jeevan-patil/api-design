@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.domain.message.ResponseMessage;
-import xyz.jeevan.api.service.OrganizationService;
+import xyz.jeevan.api.service.organization.OrganizationService;
 import xyz.jeevan.api.utils.APIEndpoints;
 
 /**
