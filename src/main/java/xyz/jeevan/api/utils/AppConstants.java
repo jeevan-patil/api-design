@@ -13,4 +13,5 @@ public final class AppConstants {
   public static final String FIELDS = "fields";
   public static final String PAGE = "page";
   public static final String LIMIT = "limit";
+  public static final String ORGANIZATION_ID = "organizationId";
 }

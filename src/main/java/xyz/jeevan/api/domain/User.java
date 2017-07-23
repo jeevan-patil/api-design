@@ -14,10 +14,14 @@ public class User {
   private String id;
 
   @DefaultField
-  private String name;
+  private String firstName;
+
+  @DefaultField
+  private String lastName;
 
   @DefaultField
   private String email;
+  private String password;
 
   private String organizationId;
   private Set<String> authorities;
@@ -33,12 +37,20 @@ public class User {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {
@@ -49,12 +61,28 @@ public class User {
     this.email = email;
   }
 
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   public String getOrganizationId() {
     return organizationId;
   }
 
   public void setOrganizationId(String organizationId) {
     this.organizationId = organizationId;
+  }
+
+  public Set<String> getAuthorities() {
+    return authorities;
+  }
+
+  public void setAuthorities(Set<String> authorities) {
+    this.authorities = authorities;
   }
 
   public boolean isActive() {
@@ -79,13 +107,5 @@ public class User {
 
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
-  }
-
-  public Set<String> getAuthorities() {
-    return authorities;
-  }
-
-  public void setAuthorities(Set<String> authorities) {
-    this.authorities = authorities;
   }
 }

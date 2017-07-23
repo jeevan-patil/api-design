@@ -16,6 +16,10 @@ public class ApplicationException extends RuntimeException {
     this.errorResponse = errorResponse;
   }
 
+  public ApplicationException(String errorMessage) {
+    super(errorMessage);
+  }
+
   public ApplicationException(ErrorResponseEnum errorResponse, Throwable throwable) {
     super(throwable);
     this.errorResponse = errorResponse;

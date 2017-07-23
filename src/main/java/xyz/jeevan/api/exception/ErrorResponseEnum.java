@@ -15,7 +15,9 @@ public enum ErrorResponseEnum {
   ENTITY_NOT_FOUND(103, "The requested entity could not be found", HttpStatus.BAD_REQUEST),
   FILE_UPLOAD_ERROR(104, "An exception has occured while uploading file.", HttpStatus.BAD_REQUEST),
   ENTITY_EXISTS(105, "An entity already exists.", HttpStatus.BAD_REQUEST),
-  PAGINATION_LIMIT_ERROR(106, "Limit field is more than what is allowed.", HttpStatus.BAD_REQUEST);
+  PAGINATION_LIMIT_ERROR(106, "Limit field is more than what is allowed.", HttpStatus.BAD_REQUEST),
+  ORGANIZATION_INACTIVE_ERROR(107, "Organization is not active anymore.", HttpStatus.BAD_REQUEST),
+  PROJECT_INACTIVE_ERROR(108, "Project is not active anymore.", HttpStatus.BAD_REQUEST);
 
   private int code;
   private String errorText;

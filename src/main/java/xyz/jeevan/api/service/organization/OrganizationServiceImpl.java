@@ -46,7 +46,7 @@ public class OrganizationServiceImpl implements OrganizationService {
       throw new ApplicationException(ErrorResponseEnum.ENTITY_EXISTS);
     }
 
-    org.setId(UniqueIdGenerator.generate());
+    //org.setId(UniqueIdGenerator.generate());
     org.setActive(true);
     org.setCreatedAt(DateUtil.now());
     org.setUpdatedAt(DateUtil.now());

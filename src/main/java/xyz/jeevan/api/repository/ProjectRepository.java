@@ -7,4 +7,5 @@ import xyz.jeevan.api.domain.Project;
 @Repository
 public interface ProjectRepository extends MongoRepository<Project, String> {
 
+  Project findProjectByNameAndOrganizationId(String name, String organizationId);
 }

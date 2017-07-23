@@ -10,4 +10,12 @@ public interface ProjectService {
    * @param project Project information object.
    */
   void create(Project project);
+
+  /**
+   * Find project by id.
+   *
+   * @param id project id.
+   * @return {@code Project} project information object.
+   */
+  Project getById(String id);
 }

@@ -1,5 +1,6 @@
 package xyz.jeevan.api.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -11,7 +12,7 @@ import xyz.jeevan.api.annotation.DefaultField;
  */
 
 @Document(collection = "organizations")
-public class Organization {
+public class Organization implements Serializable {
 
   @Id
   @DefaultField
