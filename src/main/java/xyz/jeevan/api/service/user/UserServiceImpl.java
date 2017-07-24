@@ -3,6 +3,7 @@ package xyz.jeevan.api.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.jeevan.api.domain.User;
+import xyz.jeevan.api.repository.OrganizationRepository;
 import xyz.jeevan.api.repository.UserRepository;
 
 @Service
@@ -14,8 +15,16 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private OrganizationRepository organizationRepository;
+
   @Override
   public void create(User user) {
-    userRepository.save(user);
+
+  }
+
+  @Override
+  public User getById(String id) {
+    return userRepository.findOne(id);
   }
 }

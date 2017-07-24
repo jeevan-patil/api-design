@@ -19,11 +19,10 @@ public final class AttributeProvider {
 
   public static String[] provideFields(Class clazz, final String fields) {
     Set<String> finalFields = new HashSet<>();
-    getDefaultFields(finalFields, clazz, "");
     if (!StringUtils.isEmpty(fields)) {
       finalFields.addAll(Arrays.asList(fields.split(",")));
     }
-
+    getDefaultFields(finalFields, clazz, "");
     return finalFields.toArray(new String[finalFields.size()]);
   }
 
@@ -35,13 +34,15 @@ public final class AttributeProvider {
     Field[] defaultFields = FieldUtils.getFieldsWithAnnotation(clazz, DefaultField.class);
     if (defaultFields != null) {
       for (Field field : defaultFields) {
-        String fieldName = field.getName();
-        if (isCustomObject(field)) {
-          getDefaultFields(finalFields, field.getType(), fieldName);
-        } else {
-          fieldName = (!StringUtils.isEmpty(parentField)) ? parentField + "." + fieldName
-              : fieldName;
-          finalFields.add(fieldName);
+        if (field.getAnnotation(DefaultField.class).expose()) {
+          String fieldName = field.getName();
+          if (isCustomObject(field)) {
+            getDefaultFields(finalFields, field.getType(), fieldName);
+          } else {
+            fieldName = (!StringUtils.isEmpty(parentField)) ? parentField + "." + fieldName
+                : fieldName;
+            finalFields.add(fieldName);
+          }
         }
       }
     }

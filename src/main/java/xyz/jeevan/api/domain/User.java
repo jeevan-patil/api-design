@@ -14,13 +14,16 @@ public class User {
   private String id;
 
   @DefaultField
-  private String firstName;
+  private String first;
 
   @DefaultField
-  private String lastName;
+  private String last;
 
   @DefaultField
   private String email;
+  private String address;
+
+  @DefaultField(expose = false)
   private String password;
 
   private String organizationId;
@@ -37,20 +40,20 @@ public class User {
     this.id = id;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public String getFirst() {
+    return first;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setFirst(String first) {
+    this.first = first;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getLast() {
+    return last;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setLast(String last) {
+    this.last = last;
   }
 
   public String getEmail() {
@@ -59,6 +62,14 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   public String getPassword() {

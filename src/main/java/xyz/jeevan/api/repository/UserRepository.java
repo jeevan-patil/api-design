@@ -7,4 +7,20 @@ import xyz.jeevan.api.domain.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
+  /**
+   * Fetch User by email ID.
+   *
+   * @param email Email ID.
+   * @return {@code User} User object.
+   */
+  User getByEmail(String email);
+
+  /**
+   * Fetch user by email and organization ID.
+   *
+   * @param email Email ID.
+   * @param organizationId Organization ID.
+   * @return {@cod User} User object.
+   */
+  User getByEmailAndOrganizationId(String email, String organizationId);
 }
