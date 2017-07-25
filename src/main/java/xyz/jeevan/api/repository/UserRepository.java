@@ -1,5 +1,6 @@
 package xyz.jeevan.api.repository;
 
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import xyz.jeevan.api.domain.User;
@@ -23,4 +24,6 @@ public interface UserRepository extends MongoRepository<User, String> {
    * @return {@cod User} User object.
    */
   User getByEmailAndOrganizationId(String email, String organizationId);
+
+  List<User> getByOrOrganizationIdAndActive(String organizationId, boolean active);
 }

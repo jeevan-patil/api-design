@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.message.ResponseMessage;
+import xyz.jeevan.api.key.ProjectKey;
 import xyz.jeevan.api.service.project.ProjectService;
 import xyz.jeevan.api.utils.APIEndpoints;
 
@@ -36,7 +37,7 @@ public class ProjectController extends BaseController {
   @ApiOperation(value = "Fetch project by id.",
       notes = "API to retrieve a single organization.", response = ResponseMessage.class)
   @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Project> delete(@PathVariable final String id) {
+  public ResponseEntity<Project> getById(@PathVariable final String id, ProjectKey projectKey) {
     LOG.info("Fetch project by id {}", id);
     return new ResponseEntity<>(limitDataFields(projectService.getById(id), Project.class),
         HttpStatus.CREATED);

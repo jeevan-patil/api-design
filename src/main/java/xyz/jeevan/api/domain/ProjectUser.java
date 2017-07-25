@@ -6,19 +6,18 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import xyz.jeevan.api.annotation.DefaultField;
 
-@Document(collection = "projects")
-public class Project {
+@Document(collection = "project_users")
+public class ProjectUser {
 
   @Id
   @DefaultField
   private String id;
 
-  @DefaultField
   @Indexed
-  private String name;
+  private String projectId;
 
   @Indexed
-  private String organizationId;
+  private String userId;
 
   private boolean active;
 
@@ -32,20 +31,20 @@ public class Project {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getProjectId() {
+    return projectId;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setProjectId(String projectId) {
+    this.projectId = projectId;
   }
 
-  public String getOrganizationId() {
-    return organizationId;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setOrganizationId(String organizationId) {
-    this.organizationId = organizationId;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public boolean isActive() {

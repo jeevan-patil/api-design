@@ -18,4 +18,13 @@ public interface ProjectService {
    * @return {@code Project} project information object.
    */
   Project getById(String id);
+
+  /**
+   * Check if user has access to the project.
+   *
+   * @param projectId Project ID.
+   * @param userId User ID.
+   * @return True if user has access to the project, false otherwise.
+   */
+  boolean checkProjectUserAccess(String projectId, String userId);
 }

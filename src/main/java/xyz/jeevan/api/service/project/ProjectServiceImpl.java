@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.domain.Project;
+import xyz.jeevan.api.domain.ProjectUser;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
 import xyz.jeevan.api.exception.ValidationException;
 import xyz.jeevan.api.repository.OrganizationRepository;
 import xyz.jeevan.api.repository.ProjectRepository;
+import xyz.jeevan.api.repository.ProjectUserRepository;
 import xyz.jeevan.api.utils.DateUtil;
 import xyz.jeevan.api.validator.ProjectValidator;
 
@@ -26,6 +28,9 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Autowired
   private OrganizationRepository organizationRepository;
+
+  @Autowired
+  private ProjectUserRepository projectUserRepository;
 
   @Override
   public void create(Project project) {
@@ -65,5 +70,16 @@ public class ProjectServiceImpl implements ProjectService {
     Assert.notNull(id, "Project id can not be null.");
     Project project = projectRepository.findOne(id);
     return project;
+  }
+
+  @Override
+  public boolean checkProjectUserAccess(String projectId, String userId) {
+    Assert.notNull(projectId, "Project ID can not be null.");
+    Assert.notNull(userId, "User ID can not be null.");
+    LOG.info("Check if user {} has access to project {}.", userId, projectId);
+
+    ProjectUser projectUser = projectUserRepository
+        .getByProjectIdAndUserIdAndActive(projectId, userId, true);
+    return (projectUser != null);
   }
 }

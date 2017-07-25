@@ -3,6 +3,7 @@ package xyz.jeevan.api.domain;
 import java.util.Date;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import xyz.jeevan.api.annotation.DefaultField;
 
@@ -14,19 +15,23 @@ public class User {
   private String id;
 
   @DefaultField
+  @Indexed
   private String first;
 
   @DefaultField
+  @Indexed
   private String last;
 
   @DefaultField
+  @Indexed
   private String email;
   private String address;
 
-  @DefaultField(expose = false)
+  @DefaultField(serialize = false)
   private String password;
 
   private String organizationId;
+  @Indexed
   private Set<String> authorities;
   private boolean active;
   private boolean locked;

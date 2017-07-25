@@ -34,15 +34,20 @@ public final class AttributeProvider {
     Field[] defaultFields = FieldUtils.getFieldsWithAnnotation(clazz, DefaultField.class);
     if (defaultFields != null) {
       for (Field field : defaultFields) {
-        if (field.getAnnotation(DefaultField.class).expose()) {
-          String fieldName = field.getName();
-          if (isCustomObject(field)) {
-            getDefaultFields(finalFields, field.getType(), fieldName);
-          } else {
-            fieldName = (!StringUtils.isEmpty(parentField)) ? parentField + "." + fieldName
-                : fieldName;
-            finalFields.add(fieldName);
-          }
+        String fieldName = field.getName();
+
+        // take care of fields, marked not to deserialize but requested by user
+        if (!field.getAnnotation(DefaultField.class).serialize()) {
+          finalFields.remove(fieldName);
+          continue;
+        }
+
+        if (isCustomObject(field)) {
+          getDefaultFields(finalFields, field.getType(), fieldName);
+        } else {
+          fieldName = (!StringUtils.isEmpty(parentField)) ? parentField + "." + fieldName
+              : fieldName;
+          finalFields.add(fieldName);
         }
       }
     }
