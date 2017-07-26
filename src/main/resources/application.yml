@@ -8,10 +8,16 @@ security:
   basic:
     enabled: false
 
-response:
-  default:
-    list:
-      size : 10
-  allowed:
-    list:
-      size: 100
+pagination:
+  organization:
+    default : 10
+    max : 100
+  project :
+    default : 10
+    max : 100
+  assumption :
+    default : 10
+    max : 1000
+  user :
+    defailt : 10
+    max : 100

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectUser;
@@ -33,6 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
   private ProjectUserRepository projectUserRepository;
 
   @Override
+  @LogExecutionTime
   public void create(Project project) {
     Assert.notNull(project, "Project data can not be null.");
 
@@ -66,6 +68,7 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
+  @LogExecutionTime
   public Project getById(String id) {
     Assert.notNull(id, "Project id can not be null.");
     Project project = projectRepository.findOne(id);
@@ -73,6 +76,7 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
+  @LogExecutionTime
   public boolean checkProjectUserAccess(String projectId, String userId) {
     Assert.notNull(projectId, "Project ID can not be null.");
     Assert.notNull(userId, "User ID can not be null.");
