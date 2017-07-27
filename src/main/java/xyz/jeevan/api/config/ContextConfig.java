@@ -24,4 +24,5 @@ public class ContextConfig extends WebMvcConfigurerAdapter {
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
     argumentResolvers.add(new ProjectKeyResolver());
   }
+
 }

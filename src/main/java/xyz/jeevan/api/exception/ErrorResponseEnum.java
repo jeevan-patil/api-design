@@ -17,7 +17,9 @@ public enum ErrorResponseEnum {
   ENTITY_EXISTS(105, "An entity already exists.", HttpStatus.BAD_REQUEST),
   PAGINATION_LIMIT_ERROR(106, "Limit field is more than what is allowed.", HttpStatus.BAD_REQUEST),
   ORGANIZATION_INACTIVE_ERROR(107, "Organization is not active anymore.", HttpStatus.BAD_REQUEST),
-  PROJECT_INACTIVE_ERROR(108, "Project is not active anymore.", HttpStatus.BAD_REQUEST);
+  PROJECT_INACTIVE_ERROR(108, "Project is not active anymore.", HttpStatus.BAD_REQUEST),
+  DUPLICATE_REFERENCE_NAME_ERROR(109, "Reference is already used by organization.",
+      HttpStatus.BAD_REQUEST);
 
   private int code;
   private String errorText;

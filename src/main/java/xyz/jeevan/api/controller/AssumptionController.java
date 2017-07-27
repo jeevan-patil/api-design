@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.jeevan.api.domain.Assumption;
+import xyz.jeevan.api.domain.message.ResponseMessage;
 import xyz.jeevan.api.service.assumption.AssumptionService;
 import xyz.jeevan.api.utils.APIEndpoints;
 
@@ -44,4 +45,11 @@ public class AssumptionController extends BaseController {
         HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/migrate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ResponseMessage> migrate() {
+    LOG.info("Fetch project by id migrate");
+    assumptionService.migrateAssumptions();
+    return new ResponseEntity<>(success("Done"),
+        HttpStatus.CREATED);
+  }
 }

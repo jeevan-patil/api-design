@@ -1,5 +1,8 @@
 package xyz.jeevan.api.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class AppConstants {
 
   public static final String ID = "id";
@@ -14,4 +17,16 @@ public final class AppConstants {
   public static final String PAGE = "page";
   public static final String LIMIT = "limit";
   public static final String ORGANIZATION_ID = "organizationId";
+
+  public static final List<String> fieldTypes = new ArrayList<String>() {{
+    add("userlist");
+    add("select");
+    add("multiselect");
+    add("numeric");
+    add("text");
+    add("textarea");
+    add("date");
+    add("yesno");
+    add("currency");
+  }};
 }
