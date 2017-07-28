@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +62,16 @@ public class AssumptionController extends BaseController {
     return new ResponseEntity<>(
         limitDataFields(projectAssumptions, ProjectAssumption.class, fields),
         HttpStatus.OK);
+  }
+
+  @ApiOperation(value = "Create an assumption.", notes = "API to create new assumption.",
+      response = Assumption.class)
+  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Assumption> create(@RequestBody Assumption assumption) {
+    LOG.info("Saving new assumption with label {}.", assumption.getLabel());
+    assumption = assumptionService.create(assumption);
+    return new ResponseEntity<>(limitDataFields(assumption, Assumption.class), HttpStatus.CREATED);
   }
 
 }

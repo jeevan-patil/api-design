@@ -22,13 +22,4 @@ public interface AssumptionService {
    * @return {@code Assumption} Saved assumption data.
    */
   Assumption create(Assumption assumption);
-
-  /**
-   * Whenever a new assumption is created in an organization, copy that assumption in all the
-   * existing projects under the organization.
-   *
-   * @param assumption Assumption object.
-   */
-  void copyAssumptionInProjects(Assumption assumption);
-
 }

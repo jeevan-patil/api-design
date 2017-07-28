@@ -7,12 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Assumption;
 import xyz.jeevan.api.domain.Organization;
-import xyz.jeevan.api.domain.Project;
-import xyz.jeevan.api.domain.ProjectAssumption;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
@@ -20,8 +17,6 @@ import xyz.jeevan.api.exception.ValidationException;
 import xyz.jeevan.api.helper.PaginationHelper;
 import xyz.jeevan.api.repository.AssumptionRepository;
 import xyz.jeevan.api.repository.OrganizationRepository;
-import xyz.jeevan.api.repository.ProjectAssumptionRepository;
-import xyz.jeevan.api.repository.ProjectRepository;
 import xyz.jeevan.api.utils.DateUtil;
 import xyz.jeevan.api.validator.AssumptionValidator;
 
@@ -47,10 +42,7 @@ public class AssumptionServiceImpl implements AssumptionService {
   private OrganizationRepository organizationRepository;
 
   @Autowired
-  private ProjectRepository projectRepository;
-
-  @Autowired
-  private ProjectAssumptionRepository projectAssumptionRepository;
+  private ProjectAssumptionService projectAssumptionService;
 
   @Override
   @LogExecutionTime
@@ -93,43 +85,11 @@ public class AssumptionServiceImpl implements AssumptionService {
     assumptionRepository.save(assumption);
 
     if (assumption.getId() != null) {
-      copyAssumptionInProjects(assumption);
+      projectAssumptionService.copyAssumptionInProjects(assumption);
     }
 
     return assumption;
   }
 
-  @Override
-  public void copyAssumptionInProjects(Assumption assumption) {
-    Assert.notNull(assumption, "Assumption data can not be null.");
-
-    List<Project> projects = projectRepository
-        .findByOrganizationIdAndActive(assumption.getOrgId(), true);
-
-    if (projects == null) {
-      return;
-    }
-
-    for (Project project : projects) {
-      if (project.isActive()) {
-        ProjectAssumption projectAssumption = buildProjectAssumption(assumption, project);
-        projectAssumptionRepository.save(projectAssumption);
-      }
-    }
-  }
-
-  private ProjectAssumption buildProjectAssumption(Assumption assumption, Project project) {
-    ProjectAssumption projectAssumption = new ProjectAssumption();
-    projectAssumption.setCreatedAt(DateUtil.now());
-    projectAssumption.setAssumptionId(assumption.getId());
-    projectAssumption.setProjectId(project.getId());
-    if (!StringUtils.isEmpty(assumption.getDefaultValue())) {
-      projectAssumption.setValue(assumption.getDefaultValue());
-    } else {
-      projectAssumption.setValue(null);
-    }
-    projectAssumption.setUnit(null);
-    return projectAssumption;
-  }
 
 }
