@@ -21,3 +21,6 @@ pagination:
   user :
     defailt : 10
     max : 100
+
+server:
+  port: 9000

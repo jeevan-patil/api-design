@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.jeevan.api.domain.Assumption;
-import xyz.jeevan.api.domain.message.ResponseMessage;
+import xyz.jeevan.api.domain.ProjectAssumption;
 import xyz.jeevan.api.service.assumption.AssumptionService;
+import xyz.jeevan.api.service.assumption.ProjectAssumptionService;
 import xyz.jeevan.api.utils.APIEndpoints;
 
 @RestController
@@ -31,6 +32,9 @@ public class AssumptionController extends BaseController {
 
   @Autowired
   private AssumptionService assumptionService;
+
+  @Autowired
+  private ProjectAssumptionService projectAssumptionService;
 
   @ApiOperation(value = "Fetch list of assumptions of an organization.",
       notes = "API to fetch assumptions of an organization.", response = Assumption.class)
@@ -45,11 +49,17 @@ public class AssumptionController extends BaseController {
         HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/migrate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ResponseMessage> migrate() {
-    LOG.info("Fetch project by id migrate");
-    assumptionService.migrateAssumptions();
-    return new ResponseEntity<>(success("Done"),
-        HttpStatus.CREATED);
+  @ApiOperation(value = "Fetch list of project assumptions.",
+      notes = "API to fetch assumptions of a project.", response = ProjectAssumption.class)
+  @RequestMapping(value = "/project/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<ProjectAssumption>> findProjectAssumptions(
+      @PathVariable("id") String projectId,
+      @RequestParam(value = FIELDS, required = false) String fields) {
+    LOG.info("Fetch list of assumptions for project {}.", projectId);
+    List<ProjectAssumption> projectAssumptions = projectAssumptionService.findByProject(projectId);
+    return new ResponseEntity<>(
+        limitDataFields(projectAssumptions, ProjectAssumption.class, fields),
+        HttpStatus.OK);
   }
+
 }

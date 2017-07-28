@@ -131,23 +131,4 @@ public class AssumptionServiceImpl implements AssumptionService {
     return projectAssumption;
   }
 
-  @Override
-  public void migrateAssumptions() {
-    List<Organization> organizations = organizationRepository.findAll();
-
-    for (Organization organization : organizations) {
-      List<Assumption> assumptions = assumptionRepository
-          .findByOrgIdAndActive(organization.getId(), true);
-      List<Project> projects = projectRepository
-          .findByOrganizationIdAndActive(organization.getId(), true);
-
-      for (Project project : projects) {
-        for (final Assumption assumption : assumptions) {
-          ProjectAssumption projectAssumption = buildProjectAssumption(assumption, project);
-          projectAssumptionRepository.save(projectAssumption);
-        }
-        LOG.info("Created assumptions for project : {}", project.getId());
-      }
-    }
-  }
 }

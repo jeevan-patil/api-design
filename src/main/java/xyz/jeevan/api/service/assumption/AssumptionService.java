@@ -11,5 +11,4 @@ public interface AssumptionService {
 
   void copyAssumptionInProjects(Assumption assumption);
 
-  void migrateAssumptions();
 }

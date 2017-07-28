@@ -17,7 +17,10 @@ public class ProjectAssumption {
   private String projectId;
 
   @Indexed
+  @DefaultField
   private String assumptionId;
+
+  @DefaultField
   private String value;
   private String unit;
   private Date createdAt;
