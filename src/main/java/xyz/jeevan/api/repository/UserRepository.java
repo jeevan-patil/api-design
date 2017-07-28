@@ -14,7 +14,7 @@ public interface UserRepository extends MongoRepository<User, String> {
    * @param email Email ID.
    * @return {@code User} User object.
    */
-  User getByEmail(String email);
+  User findByEmail(String email);
 
   /**
    * Fetch user by email and organization ID.
@@ -23,7 +23,14 @@ public interface UserRepository extends MongoRepository<User, String> {
    * @param organizationId Organization ID.
    * @return {@cod User} User object.
    */
-  User getByEmailAndOrganizationId(String email, String organizationId);
+  User findByEmailAndOrganizationId(String email, String organizationId);
 
-  List<User> getByOrOrganizationIdAndActive(String organizationId, boolean active);
+  /**
+   * Fetch users by organization.
+   *
+   * @param organizationId Organization ID.
+   * @param active User status indicator.
+   * @return {@code List<User>} List of users.
+   */
+  List<User> findByOrOrganizationIdAndActive(String organizationId, boolean active);
 }

@@ -5,10 +5,30 @@ import xyz.jeevan.api.domain.Assumption;
 
 public interface AssumptionService {
 
-  List<Assumption> getOrganizationAssumptions(String orgId, Integer page, Integer limit);
+  /**
+   * Fetch organization assumptions.
+   *
+   * @param orgId Organization ID.
+   * @param page ResultSet page number.
+   * @param limit ResultSet limit / number of records to fetch.
+   * @return {@code List<Assumption>} List of assumptions.
+   */
+  List<Assumption> findOrganizationAssumptions(String orgId, Integer page, Integer limit);
 
+  /**
+   * Create an assumption.
+   *
+   * @param assumption {@link Assumption} assumption data to save.
+   * @return {@code Assumption} Saved assumption data.
+   */
   Assumption create(Assumption assumption);
 
+  /**
+   * Whenever a new assumption is created in an organization, copy that assumption in all the
+   * existing projects under the organization.
+   *
+   * @param assumption Assumption object.
+   */
   void copyAssumptionInProjects(Assumption assumption);
 
 }

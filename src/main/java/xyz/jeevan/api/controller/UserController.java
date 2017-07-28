@@ -18,7 +18,7 @@ import xyz.jeevan.api.utils.APIEndpoints;
 import xyz.jeevan.api.utils.AppConstants;
 
 @RestController
-@Api(value = "users")
+@Api(value = "users", description = "User APIs")
 @RequestMapping(value = APIEndpoints.USER_API_URL)
 public class UserController extends BaseController {
 
@@ -44,7 +44,7 @@ public class UserController extends BaseController {
   public ResponseEntity<User> getById(@PathVariable String id,
       @RequestParam(value = AppConstants.FIELDS, required = false) String fields) {
     LOG.info("Fetch user by id {}", id);
-    return new ResponseEntity<User>(limitDataFields(userService.getById(id), User.class, fields),
+    return new ResponseEntity<>(limitDataFields(userService.getById(id), User.class, fields),
         HttpStatus.MULTI_STATUS.OK);
   }
 }

@@ -30,8 +30,8 @@ public class User {
   @DefaultField(serialize = false)
   private String password;
 
-  private String organizationId;
   @Indexed
+  private String organizationId;
   private Set<String> authorities;
   private boolean active;
   private boolean locked;

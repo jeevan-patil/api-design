@@ -27,7 +27,7 @@ import xyz.jeevan.api.utils.APIEndpoints;
  */
 
 @RestController
-@Api(value = "organizations")
+@Api(value = "organizations", description = "Organization APIs")
 @RequestMapping(value = APIEndpoints.ORG_API_URL)
 public class OrganizationController extends BaseController {
 

@@ -10,10 +10,10 @@ import xyz.jeevan.api.annotation.DefaultField;
 public class ProjectAssumption {
 
   @Id
-  @DefaultField
   private String id;
 
   @Indexed
+  @DefaultField
   private String projectId;
 
   @Indexed

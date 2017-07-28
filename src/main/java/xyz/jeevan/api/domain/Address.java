@@ -10,6 +10,7 @@ public class Address {
   @DefaultField
   private String city;
   private String state;
+
   @DefaultField
   private String zip;
   private String country;

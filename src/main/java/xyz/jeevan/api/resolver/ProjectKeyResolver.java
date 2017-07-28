@@ -7,6 +7,11 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import xyz.jeevan.api.key.ProjectKey;
 
+/**
+ * This is implementation of custom arguments which can be part of controller methods. This feature
+ * can be used to create metadata from request data. This can be helpful to check resource or entity
+ * level user access.
+ */
 public class ProjectKeyResolver implements HandlerMethodArgumentResolver {
 
   private String userId = "5974c81791f1ad157e9ba284";
@@ -19,7 +24,6 @@ public class ProjectKeyResolver implements HandlerMethodArgumentResolver {
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-    System.out.println("In resolver");
     return new ProjectKey("5974c81791f1ad157e9ba284", userId);
   }
 }

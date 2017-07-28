@@ -21,7 +21,7 @@ import xyz.jeevan.api.utils.APIEndpoints;
  * Created by jeevan on 16/7/17.
  */
 @RestController
-@Api(value = "projects")
+@Api(value = "projects", description = "Project APIs")
 @RequestMapping(value = APIEndpoints.PROJECT_API_URL)
 public class ProjectController extends BaseController {
 

@@ -54,17 +54,18 @@ public class AssumptionServiceImpl implements AssumptionService {
 
   @Override
   @LogExecutionTime
-  public List<Assumption> getOrganizationAssumptions(String orgId, Integer page, Integer limit) {
+  public List<Assumption> findOrganizationAssumptions(String orgId, Integer page, Integer limit) {
     page = paginationHelper.refinePageNumber(page);
     limit = paginationHelper.validateResponseLimit(limit, defaultPageSize, maxPageSize);
     LOG.info("Get assumptions for organization {}, page {}, limit {}", orgId, page, limit);
 
     Page<Assumption> assumptions = assumptionRepository
-        .findByAndOrgIdAndActive(orgId, true, new PageRequest(page, limit));
+        .findByOrgIdAndActive(orgId, true, new PageRequest(page, limit));
     return assumptions.getContent();
   }
 
   @Override
+  @LogExecutionTime
   public Assumption create(Assumption assumption) {
     Assert.notNull(assumption, "Assumption data can not be null.");
 

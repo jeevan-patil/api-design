@@ -23,7 +23,7 @@ import xyz.jeevan.api.service.assumption.ProjectAssumptionService;
 import xyz.jeevan.api.utils.APIEndpoints;
 
 @RestController
-@Api(value = "assumptions")
+@Api(value = "assumptions", description = "Assumption APIs")
 @RequestMapping(value = APIEndpoints.ASSUMPTION_API_URL)
 public class AssumptionController extends BaseController {
 
@@ -44,16 +44,17 @@ public class AssumptionController extends BaseController {
       @RequestParam(value = LIMIT, required = false) Integer limit,
       @RequestParam(value = FIELDS, required = false) String fields) {
     LOG.info("Fetch list of assumptions for an organization {}.", orgId);
-    List<Assumption> assumptions = assumptionService.getOrganizationAssumptions(orgId, page, limit);
+    List<Assumption> assumptions = assumptionService
+        .findOrganizationAssumptions(orgId, page, limit);
     return new ResponseEntity<>(limitDataFields(assumptions, Assumption.class, fields),
         HttpStatus.OK);
   }
 
   @ApiOperation(value = "Fetch list of project assumptions.",
       notes = "API to fetch assumptions of a project.", response = ProjectAssumption.class)
-  @RequestMapping(value = "/project/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ProjectAssumption>> findProjectAssumptions(
-      @PathVariable("id") String projectId,
+      @PathVariable String projectId,
       @RequestParam(value = FIELDS, required = false) String fields) {
     LOG.info("Fetch list of assumptions for project {}.", projectId);
     List<ProjectAssumption> projectAssumptions = projectAssumptionService.findByProject(projectId);

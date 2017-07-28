@@ -11,5 +11,11 @@ import xyz.jeevan.api.domain.Organization;
 @Repository
 public interface OrganizationRepository extends MongoRepository<Organization, String> {
 
+  /**
+   * Find organization by name.
+   *
+   * @param name Organization name.
+   * @return {@link Organization} Organization Object.
+   */
   Organization findByName(String name);
 }

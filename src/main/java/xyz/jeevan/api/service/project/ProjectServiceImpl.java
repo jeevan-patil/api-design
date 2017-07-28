@@ -83,7 +83,7 @@ public class ProjectServiceImpl implements ProjectService {
     LOG.info("Check if user {} has access to project {}.", userId, projectId);
 
     ProjectUser projectUser = projectUserRepository
-        .getByProjectIdAndUserIdAndActive(projectId, userId, true);
+        .findByProjectIdAndUserIdAndActive(projectId, userId, true);
     return (projectUser != null);
   }
 }
