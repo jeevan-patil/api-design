@@ -2,18 +2,23 @@ package xyz.jeevan.api.service.project;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectUser;
+import xyz.jeevan.api.domain.QProject;
 import xyz.jeevan.api.event.EntityCreatedEvent;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
 import xyz.jeevan.api.exception.ValidationException;
+import xyz.jeevan.api.helper.PaginationHelper;
 import xyz.jeevan.api.repository.OrganizationRepository;
 import xyz.jeevan.api.repository.ProjectRepository;
 import xyz.jeevan.api.repository.ProjectUserRepository;
@@ -25,6 +30,15 @@ public class ProjectServiceImpl implements ProjectService {
 
   private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory
       .getLogger(ProjectServiceImpl.class);
+
+  @Autowired
+  private PaginationHelper paginationHelper;
+
+  @Value("${pagination.project.default}")
+  private int defaultPageSize;
+
+  @Value("${pagination.project.max}")
+  private int maxPageSize;
 
   @Autowired
   private ProjectRepository projectRepository;
@@ -91,6 +105,18 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectUser projectUser = projectUserRepository
         .findByProjectIdAndUserIdAndActive(projectId, userId, true);
     return (projectUser != null);
+  }
+
+  @Override
+  @LogExecutionTime
+  public List<Project> search(String orgId, Integer page, Integer limit) {
+    page = paginationHelper.refinePageNumber(page);
+    limit = paginationHelper.validateResponseLimit(limit, defaultPageSize, maxPageSize);
+
+    QProject projectPredicate = QProject.project;
+    Page<Project> projects = projectRepository
+        .findAll(projectPredicate.organizationId.eq(orgId), new PageRequest(page, limit));
+    return projects.getContent();
   }
 
   void publishProjectCreatedEvent(Project project) {

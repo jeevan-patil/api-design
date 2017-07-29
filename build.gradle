@@ -10,6 +10,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.9"
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -33,5 +37,20 @@ dependencies {
     compile('org.apache.commons:commons-lang3:3.6')
     compile('io.springfox:springfox-swagger2:2.7.0')
     compile('io.springfox:springfox-swagger-ui:2.7.0')
+    compile('com.querydsl:querydsl-mongodb:4.1.4')
+    compile('com.querydsl:querydsl-apt:4.1.4')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/generated/source/apt/main"
+        }
+    }
+}
+
+querydsl {
+    springDataMongo = true
+    querydslSourcesDir = "$buildDir/generated/source/apt/main"
 }

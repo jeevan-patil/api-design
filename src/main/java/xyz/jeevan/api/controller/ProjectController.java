@@ -1,7 +1,12 @@
 package xyz.jeevan.api.controller;
 
+import static xyz.jeevan.api.utils.AppConstants.FIELDS;
+import static xyz.jeevan.api.utils.AppConstants.LIMIT;
+import static xyz.jeevan.api.utils.AppConstants.PAGE;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.message.ResponseMessage;
@@ -56,4 +62,18 @@ public class ProjectController extends BaseController {
     return new ResponseEntity<>(limitDataFields(project, Project.class), HttpStatus.CREATED);
   }
 
+  @ApiOperation(value = "Fetch list of projects from an organization.", notes = "Fetch list of projects from an organization.",
+      response = Project.class)
+  @RequestMapping(value = "/org/{orgId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<Project>> findProjects(
+      @PathVariable String orgId,
+      @RequestParam(value = PAGE, required = false) Integer page,
+      @RequestParam(value = LIMIT, required = false) Integer limit,
+      @RequestParam(value = FIELDS, required = false) String fields) {
+    LOG.info("Fetch list of projects.");
+    List<Project> projects = projectService.search(orgId, page, limit);
+    return new ResponseEntity<>(
+        limitDataFields(projects, Project.class, fields),
+        HttpStatus.OK);
+  }
 }
