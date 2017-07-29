@@ -2,12 +2,14 @@ package xyz.jeevan.api.service.project;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Organization;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectUser;
+import xyz.jeevan.api.event.EntityCreatedEvent;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
@@ -32,6 +34,9 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Autowired
   private ProjectUserRepository projectUserRepository;
+
+  @Autowired
+  private ApplicationEventPublisher eventPublisher;
 
   @Override
   @LogExecutionTime
@@ -64,6 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     project.setCreatedAt(DateUtil.now());
     projectRepository.save(project);
+    publishProjectCreatedEvent(project);
     LOG.info("Created project {} successfully.", projectName);
   }
 
@@ -85,5 +91,10 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectUser projectUser = projectUserRepository
         .findByProjectIdAndUserIdAndActive(projectId, userId, true);
     return (projectUser != null);
+  }
+
+  void publishProjectCreatedEvent(Project project) {
+    EntityCreatedEvent entityCreatedEvent = new EntityCreatedEvent(this, project);
+    eventPublisher.publishEvent(entityCreatedEvent);
   }
 }

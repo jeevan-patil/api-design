@@ -2,6 +2,7 @@ package xyz.jeevan.api.repository;
 
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import xyz.jeevan.api.domain.Project;
 
@@ -11,10 +12,11 @@ public interface ProjectRepository extends MongoRepository<Project, String> {
   /**
    * Find project by name and organization.
    *
-   * @param name Project name.
+   * @param name Project name. Search will be case insensitive.
    * @param organizationId Organization ID.
    * @return {@code Project} project object.
    */
+  @Query(value = "{'name': {$regex : '^?0$', $options: 'i'}}")
   Project findProjectByNameAndOrganizationId(String name, String organizationId);
 
   /**

@@ -2,6 +2,7 @@ package xyz.jeevan.api.service.assumption;
 
 import java.util.List;
 import xyz.jeevan.api.domain.Assumption;
+import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectAssumption;
 
 public interface ProjectAssumptionService {
@@ -20,5 +21,12 @@ public interface ProjectAssumptionService {
    *
    * @param assumption Assumption object.
    */
-  void copyAssumptionInProjects(Assumption assumption);
+  void copyNewAssumptionInProjects(Assumption assumption);
+
+  /**
+   * Create project assumptions for newly created project.
+   *
+   * @param project {@link Project} Project object.
+   */
+  void createProjectAssumptions(Project project);
 }

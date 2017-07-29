@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import xyz.jeevan.api.domain.Assumption;
+import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.event.EntityCreatedEvent;
 import xyz.jeevan.api.service.assumption.ProjectAssumptionService;
 
@@ -17,7 +18,9 @@ public class EntityCreatedEventListener implements ApplicationListener<EntityCre
   public void onApplicationEvent(EntityCreatedEvent event) {
     if (event.getEntity() != null) {
       if (event.getEntity() instanceof Assumption) {
-        projectAssumptionService.copyAssumptionInProjects((Assumption) event.getEntity());
+        projectAssumptionService.copyNewAssumptionInProjects((Assumption) event.getEntity());
+      } else if (event.getEntity() instanceof Project) {
+        projectAssumptionService.createProjectAssumptions((Project) event.getEntity());
       }
     }
   }

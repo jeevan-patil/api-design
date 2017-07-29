@@ -1,5 +1,6 @@
 package xyz.jeevan.api.service.assumption;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Assumption;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectAssumption;
+import xyz.jeevan.api.repository.AssumptionRepository;
 import xyz.jeevan.api.repository.ProjectAssumptionRepository;
 import xyz.jeevan.api.repository.ProjectRepository;
 import xyz.jeevan.api.utils.DateUtil;
@@ -25,6 +27,9 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
   @Autowired
   private ProjectRepository projectRepository;
 
+  @Autowired
+  private AssumptionRepository assumptionRepository;
+
   @Override
   @LogExecutionTime
   public List<ProjectAssumption> findByProject(String projectId) {
@@ -34,7 +39,7 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
 
   @Override
   @LogExecutionTime
-  public void copyAssumptionInProjects(Assumption assumption) {
+  public void copyNewAssumptionInProjects(Assumption assumption) {
     Assert.notNull(assumption, "Assumption data can not be null.");
 
     List<Project> projects = projectRepository
@@ -51,6 +56,27 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
         projectAssumption.setProjectId(project.getId());
         projectAssumptionRepository.save(projectAssumption);
       }
+    }
+  }
+
+  @Override
+  @LogExecutionTime
+  public void createProjectAssumptions(Project project) {
+    Assert.notNull(project, "Project data can not be null.");
+    Assert.notNull(project.getOrganizationId(),
+        "Organization id not available to fetch assumptions.");
+
+    List<Assumption> assumptions = assumptionRepository
+        .findByOrgIdAndActive(project.getOrganizationId(), true);
+
+    if (assumptions != null) {
+      List<ProjectAssumption> projectAssumptions = new ArrayList<>();
+      for (Assumption assumption : assumptions) {
+        ProjectAssumption projectAssumption = buildProjectAssumption(assumption);
+        projectAssumption.setProjectId(project.getId());
+        projectAssumptions.add(projectAssumption);
+      }
+      projectAssumptionRepository.save(projectAssumptions);
     }
   }
 
