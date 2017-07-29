@@ -3,6 +3,7 @@ package xyz.jeevan.api.service.assumption;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.util.Assert;
 import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Assumption;
 import xyz.jeevan.api.domain.Organization;
+import xyz.jeevan.api.event.EntityCreatedEvent;
 import xyz.jeevan.api.exception.ApplicationException;
 import xyz.jeevan.api.exception.ErrorResponseEnum;
 import xyz.jeevan.api.exception.ValidationError;
@@ -42,7 +44,7 @@ public class AssumptionServiceImpl implements AssumptionService {
   private OrganizationRepository organizationRepository;
 
   @Autowired
-  private ProjectAssumptionService projectAssumptionService;
+  private ApplicationEventPublisher applicationEventPublisher;
 
   @Override
   @LogExecutionTime
@@ -85,11 +87,14 @@ public class AssumptionServiceImpl implements AssumptionService {
     assumptionRepository.save(assumption);
 
     if (assumption.getId() != null) {
-      projectAssumptionService.copyAssumptionInProjects(assumption);
+      publishAssumptionCreatedEvent(assumption);
     }
 
     return assumption;
   }
 
-
+  void publishAssumptionCreatedEvent(final Assumption assumption) {
+    EntityCreatedEvent entityCreatedEvent = new EntityCreatedEvent(this, assumption);
+    applicationEventPublisher.publishEvent(entityCreatedEvent);
+  }
 }
