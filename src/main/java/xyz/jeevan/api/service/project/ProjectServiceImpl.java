@@ -1,11 +1,11 @@
 package xyz.jeevan.api.service.project;
 
+import com.querydsl.core.types.Predicate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.jeevan.api.annotation.LogExecutionTime;
@@ -109,13 +109,14 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   @LogExecutionTime
-  public List<Project> search(String orgId, Integer page, Integer limit) {
+  public List<Project> search(String orgId, Integer page, Integer limit,
+      String sortBy, String sortDir) {
     page = paginationHelper.refinePageNumber(page);
     limit = paginationHelper.validateResponseLimit(limit, defaultPageSize, maxPageSize);
 
-    QProject projectPredicate = QProject.project;
+    QProject predicate = QProject.project;
     Page<Project> projects = projectRepository
-        .findAll(projectPredicate.organizationId.eq(orgId), new PageRequest(page, limit));
+        .findAll(predicate.organizationId.eq(orgId), paginationHelper.getPageRequest(page, limit, sortBy, sortDir));
     return projects.getContent();
   }
 

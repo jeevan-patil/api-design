@@ -16,6 +16,9 @@ public final class AppConstants {
   public static final String FIELDS = "fields";
   public static final String PAGE = "page";
   public static final String LIMIT = "limit";
+  public static final String SORT_DIR = "sortDir";
+  public static final String SORT_BY = "sortBy";
+  public static final String DEFAULT_SORT_BY = "id";
   public static final String ORGANIZATION_ID = "organizationId";
 
   public static final List<String> fieldTypes = new ArrayList<String>() {{

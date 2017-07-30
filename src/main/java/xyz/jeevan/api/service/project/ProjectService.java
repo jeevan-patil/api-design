@@ -1,6 +1,6 @@
 package xyz.jeevan.api.service.project;
 
-import io.swagger.models.auth.In;
+import com.querydsl.core.types.Predicate;
 import java.util.List;
 import xyz.jeevan.api.domain.Project;
 
@@ -30,5 +30,16 @@ public interface ProjectService {
    */
   boolean checkProjectUserAccess(String projectId, String userId);
 
-  List<Project> search(String orgId, Integer page, Integer limit);
+  /**
+   * Project Search method.
+   *
+   * @param orgId Organization ID..
+   * @param page Page number.
+   * @param limit Page limit.
+   * @param sortBy Sort result list by column.
+   * @param sortDir Sort result list by direction.
+   * @return {@code List<Project>} Project list.
+   */
+  List<Project> search(String orgId, Integer page, Integer limit, String sortBy,
+      String sortDir);
 }

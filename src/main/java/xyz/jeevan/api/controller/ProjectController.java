@@ -3,6 +3,8 @@ package xyz.jeevan.api.controller;
 import static xyz.jeevan.api.utils.AppConstants.FIELDS;
 import static xyz.jeevan.api.utils.AppConstants.LIMIT;
 import static xyz.jeevan.api.utils.AppConstants.PAGE;
+import static xyz.jeevan.api.utils.AppConstants.SORT_BY;
+import static xyz.jeevan.api.utils.AppConstants.SORT_DIR;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,14 +66,16 @@ public class ProjectController extends BaseController {
 
   @ApiOperation(value = "Fetch list of projects from an organization.", notes = "Fetch list of projects from an organization.",
       response = Project.class)
-  @RequestMapping(value = "/org/{orgId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<Project>> findProjects(
+  @RequestMapping(value = "/org/{orgId}/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<Project>> search(
       @PathVariable String orgId,
       @RequestParam(value = PAGE, required = false) Integer page,
       @RequestParam(value = LIMIT, required = false) Integer limit,
+      @RequestParam(value = SORT_DIR, required = false) String sortDir,
+      @RequestParam(value = SORT_BY, required = false) String sortBy,
       @RequestParam(value = FIELDS, required = false) String fields) {
     LOG.info("Fetch list of projects.");
-    List<Project> projects = projectService.search(orgId, page, limit);
+    List<Project> projects = projectService.search(orgId, page, limit, sortBy, sortDir);
     return new ResponseEntity<>(
         limitDataFields(projects, Project.class, fields),
         HttpStatus.OK);
