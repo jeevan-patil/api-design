@@ -1,6 +1,5 @@
 package xyz.jeevan.api.service.project;
 
-import com.querydsl.core.types.Predicate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -114,9 +113,11 @@ public class ProjectServiceImpl implements ProjectService {
     page = paginationHelper.refinePageNumber(page);
     limit = paginationHelper.validateResponseLimit(limit, defaultPageSize, maxPageSize);
 
+    //https://stackoverflow.com/questions/33283560/querydsl-dynamic-predicates
     QProject predicate = QProject.project;
     Page<Project> projects = projectRepository
-        .findAll(predicate.organizationId.eq(orgId), paginationHelper.getPageRequest(page, limit, sortBy, sortDir));
+        .findAll(predicate.organizationId.eq(orgId),
+            paginationHelper.pageRequest(page, limit, sortBy, sortDir));
     return projects.getContent();
   }
 

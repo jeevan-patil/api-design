@@ -14,7 +14,6 @@ import xyz.jeevan.api.utils.AppConstants;
 /**
  * Created by jeevan on 15/7/17.
  */
-
 @Component
 public class PaginationHelper {
 
@@ -34,13 +33,17 @@ public class PaginationHelper {
     return limit;
   }
 
-  public PageRequest getPageRequest(int page, int limit, String sortBy, String sortDir) {
+  public PageRequest pageRequest(int page, int limit, String sortBy, String sortDir) {
+    return new PageRequest(page, limit, sort(sortBy, sortDir));
+  }
+
+  public Sort sort(String sortBy, String sortDir) {
     Sort.Direction direction = ASC.toString().equalsIgnoreCase(sortDir) ? ASC : DESC;
 
     if (StringUtils.isEmpty(sortBy)) {
       sortBy = AppConstants.DEFAULT_SORT_BY;
     }
 
-    return new PageRequest(page, limit, new Sort(new Sort.Order(direction, sortBy)));
+    return new Sort(new Sort.Order(direction, sortBy));
   }
 }

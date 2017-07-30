@@ -11,9 +11,11 @@ public interface ProjectAssumptionService {
    * Find project assumptions.
    *
    * @param projectId Project ID.
+   * @param sortBy Sort by property.
+   * @param sortDir Sort direction.
    * @return {@code List<ProjectAssumption>} List of project assumptions.
    */
-  List<ProjectAssumption> findByProject(String projectId);
+  List<ProjectAssumption> findByProject(String projectId, String sortBy, String sortDir);
 
   /**
    * Whenever a new assumption is created in an organization, copy that assumption in all the

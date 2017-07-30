@@ -1,5 +1,6 @@
 package xyz.jeevan.api.service.assumption;
 
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import xyz.jeevan.api.annotation.LogExecutionTime;
 import xyz.jeevan.api.domain.Assumption;
 import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectAssumption;
+import xyz.jeevan.api.domain.QProjectAssumption;
+import xyz.jeevan.api.helper.PaginationHelper;
 import xyz.jeevan.api.repository.AssumptionRepository;
 import xyz.jeevan.api.repository.ProjectAssumptionRepository;
 import xyz.jeevan.api.repository.ProjectRepository;
@@ -22,6 +25,9 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
       .getLogger(ProjectAssumptionServiceImpl.class);
 
   @Autowired
+  private PaginationHelper paginationHelper;
+
+  @Autowired
   private ProjectAssumptionRepository projectAssumptionRepository;
 
   @Autowired
@@ -32,14 +38,18 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
 
   @Override
   @LogExecutionTime
-  public List<ProjectAssumption> findByProject(String projectId) {
+  public List<ProjectAssumption> findByProject(String projectId, String sortBy, String sortDir) {
     Assert.notNull(projectId, "Project ID can not be null.");
-    return projectAssumptionRepository.findByProjectId(projectId);
+    QProjectAssumption predicate = QProjectAssumption.projectAssumption;
+    List<ProjectAssumption> projectAssumptions = Lists.newArrayList(projectAssumptionRepository
+        .findAll(predicate.projectId.eq(projectId), paginationHelper.sort(sortBy, sortDir)));
+    return projectAssumptions;
   }
 
   @Override
   @LogExecutionTime
   public void copyNewAssumptionInProjects(Assumption assumption) {
+    LOG.info("Copy newly created assumption in all the projects of an organization.");
     Assert.notNull(assumption, "Assumption data can not be null.");
 
     List<Project> projects = projectRepository
@@ -62,6 +72,7 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
   @Override
   @LogExecutionTime
   public void createProjectAssumptions(Project project) {
+    LOG.info("Create assumptions for newly created project.");
     Assert.notNull(project, "Project data can not be null.");
     Assert.notNull(project.getOrganizationId(),
         "Organization id not available to fetch assumptions.");
