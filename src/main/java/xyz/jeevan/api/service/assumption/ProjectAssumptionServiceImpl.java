@@ -2,7 +2,6 @@ package xyz.jeevan.api.service.assumption;
 
 import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,20 +40,22 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
   @Autowired
   private AssumptionRepository assumptionRepository;
 
+
   @Override
   @LogExecutionTime
   public List<ProjectAssumption> search(String projectId, String criteria, String sortBy,
       String sortDir) {
     Assert.notNull(projectId, "Project ID can not be null.");
+    Project project = projectRepository.findOne(projectId);
+    Assert.notNull(project, "Project does not exist.");
 
     List<SearchCriteria> searchCriteria = SearchCriteriaBuilder.build(criteria);
     BooleanBuilder builder = new BooleanBuilder();
+    QProjectAssumption predicate = QProjectAssumption.projectAssumption;
     for (SearchCriteria rule : searchCriteria) {
-      BooleanExpression expression = ProjectAssumptionPredicate.getPredicate(rule);
-      builder.and(expression);
+      builder.and(ProjectAssumptionPredicate.getPredicate(rule));
     }
 
-    QProjectAssumption predicate = QProjectAssumption.projectAssumption;
     List<ProjectAssumption> projectAssumptions = Lists.newArrayList(projectAssumptionRepository
         .findAll(builder.and(predicate.projectId.eq(projectId)),
             paginationHelper.sort(sortBy, sortDir)));
