@@ -1,5 +1,6 @@
 package xyz.jeevan.api.controller;
 
+import static xyz.jeevan.api.utils.AppConstants.CRITERIA;
 import static xyz.jeevan.api.utils.AppConstants.FIELDS;
 import static xyz.jeevan.api.utils.AppConstants.LIMIT;
 import static xyz.jeevan.api.utils.AppConstants.PAGE;
@@ -53,17 +54,18 @@ public class AssumptionController extends BaseController {
         HttpStatus.OK);
   }
 
-  @ApiOperation(value = "Fetch list of project assumptions.",
+  @ApiOperation(value = "Fetch list of project assumptions based on search criteria.",
       notes = "API to fetch assumptions of a project.", response = ProjectAssumption.class)
   @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ProjectAssumption> > findProjectAssumptions(
+  public ResponseEntity<List<ProjectAssumption>> findProjectAssumptions(
       @PathVariable String projectId,
       @RequestParam(value = SORT_DIR, required = false) String sortDir,
       @RequestParam(value = SORT_BY, required = false) String sortBy,
-      @RequestParam(value = FIELDS, required = false) String fields) {
+      @RequestParam(value = FIELDS, required = false) String fields,
+      @RequestParam(value = CRITERIA, required = false) String criteria) {
     LOG.info("Fetch list of assumptions for project {}.", projectId);
     List<ProjectAssumption> projectAssumptions = projectAssumptionService
-        .findByProject(projectId, sortBy, sortDir);
+        .search(projectId, criteria, sortBy, sortDir);
     return new ResponseEntity<>(
         limitDataFields(projectAssumptions, ProjectAssumption.class, fields),
         HttpStatus.OK);

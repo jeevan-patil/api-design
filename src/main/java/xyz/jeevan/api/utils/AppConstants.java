@@ -20,6 +20,7 @@ public final class AppConstants {
   public static final String SORT_BY = "sortBy";
   public static final String DEFAULT_SORT_BY = "id";
   public static final String ORGANIZATION_ID = "organizationId";
+  public static final String CRITERIA = "criteria";
 
   public static final List<String> fieldTypes = new ArrayList<String>() {{
     add("userlist");

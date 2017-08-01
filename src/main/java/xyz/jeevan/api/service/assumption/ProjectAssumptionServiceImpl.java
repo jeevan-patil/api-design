@@ -1,6 +1,8 @@
 package xyz.jeevan.api.service.assumption;
 
 import com.google.common.collect.Lists;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.domain.ProjectAssumption;
 import xyz.jeevan.api.domain.QProjectAssumption;
 import xyz.jeevan.api.helper.PaginationHelper;
+import xyz.jeevan.api.helper.SearchCriteriaBuilder;
+import xyz.jeevan.api.key.SearchCriteria;
+import xyz.jeevan.api.predicate.ProjectAssumptionPredicate;
 import xyz.jeevan.api.repository.AssumptionRepository;
 import xyz.jeevan.api.repository.ProjectAssumptionRepository;
 import xyz.jeevan.api.repository.ProjectRepository;
@@ -38,11 +43,21 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
 
   @Override
   @LogExecutionTime
-  public List<ProjectAssumption> findByProject(String projectId, String sortBy, String sortDir) {
+  public List<ProjectAssumption> search(String projectId, String criteria, String sortBy,
+      String sortDir) {
     Assert.notNull(projectId, "Project ID can not be null.");
+
+    List<SearchCriteria> searchCriteria = SearchCriteriaBuilder.build(criteria);
+    BooleanBuilder builder = new BooleanBuilder();
+    for (SearchCriteria rule : searchCriteria) {
+      BooleanExpression expression = ProjectAssumptionPredicate.getPredicate(rule);
+      builder.and(expression);
+    }
+
     QProjectAssumption predicate = QProjectAssumption.projectAssumption;
     List<ProjectAssumption> projectAssumptions = Lists.newArrayList(projectAssumptionRepository
-        .findAll(predicate.projectId.eq(projectId), paginationHelper.sort(sortBy, sortDir)));
+        .findAll(builder.and(predicate.projectId.eq(projectId)),
+            paginationHelper.sort(sortBy, sortDir)));
     return projectAssumptions;
   }
 
