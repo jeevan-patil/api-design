@@ -10,12 +10,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import xyz.jeevan.api.filter.ApiCorsFilter;
+import xyz.jeevan.api.utils.APIEndpoints;
 
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
   private static final String RESOURCE_ID = "api_design";
+  final String[] protectEndpoints = {APIEndpoints.BASE_API_URL_V1 + "/**"};
+
   @Autowired
   private ApiCorsFilter corsFilter;
 
@@ -30,8 +33,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS).permitAll()
-//        .antMatchers("/oauth/**").permitAll()
-        .antMatchers("/api/v1/**").authenticated()
+        .antMatchers(protectEndpoints).authenticated()
         .and().addFilterBefore(corsFilter, AnonymousAuthenticationFilter.class)
         .anonymous();
   }

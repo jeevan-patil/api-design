@@ -6,6 +6,6 @@ Sample application to study API design.
 - QueryDSL
 - Spring Events
 - Swagger Documentation
-- API Security using OAuth2 (TODO)
+- API Security using OAuth2
 
 To checkout the APIs, just go to http://localhost:9000/swagger-ui.html

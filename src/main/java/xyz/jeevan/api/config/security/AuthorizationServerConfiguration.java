@@ -16,8 +16,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-  private static String REALM = "api-security";
-  private static String CLIENT_ID = "uNjKCwt2aH";
+  private static String REALM         = "api-security";
+  private static String CLIENT_ID     = "uNjKCwt2aH";
   private static String CLIENT_SECRET = "X5QdJUHyWX";
 
   @Autowired
@@ -32,7 +32,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
     clients.inMemory()
         .withClient(CLIENT_ID)
         .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
