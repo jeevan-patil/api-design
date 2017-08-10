@@ -24,3 +24,9 @@ pagination:
 
 server:
   port: 9000
+
+logging:
+  level:
+    org.springframework.web : debug
+
+security.oauth2.resource.filter-order : 3

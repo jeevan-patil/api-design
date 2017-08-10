@@ -30,6 +30,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.security.oauth:spring-security-oauth2')
     compile('com.monitorjbl:spring-json-view:0.15') {
         exclude group: "org.slf4j", module: "slf4j-log4j12"
         exclude group: "org.slf4j", module: "slf4j-api"

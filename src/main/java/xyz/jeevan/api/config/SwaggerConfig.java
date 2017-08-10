@@ -27,12 +27,8 @@ public class SwaggerConfig {
   public Docket projectApi() {
     return new Docket(DocumentationType.SWAGGER_2).ignoredParameterTypes(ignoreParamClasses())
         .groupName("rest-api").apiInfo(apiInfo()).select()
-        .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+        .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework")))
         .build();
-  }
-
-  private Predicate<String> endpoints() {
-    return PathSelectors.regex("/api/*");
   }
 
   private ApiInfo apiInfo() {
