@@ -53,7 +53,6 @@ public class AssumptionServiceImplTest {
     when(mockAssumptionRepository.save(assumption)).thenReturn(createdAssumption);
 
     createdAssumption = cut.create(assumption);
-    assertNull(createdAssumption);
     assertNotNull(createdAssumption);
     verify(mockOrganizationRepository).findOne(assumption.getOrgId());
     verify(mockAssumptionRepository)
