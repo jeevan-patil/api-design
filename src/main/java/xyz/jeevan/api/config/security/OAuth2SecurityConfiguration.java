@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -23,10 +24,11 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private ClientDetailsService clientDetailsService;
 
   @Autowired
+  private UserDetailsService userDetailsService;
+
+  @Autowired
   public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication()
-        .withUser("user1").password("test123").roles("ADMIN", "USER").and()
-        .withUser("user2").password("test123").roles("USER");
+    auth.userDetailsService(userDetailsService);
   }
 
   @Override

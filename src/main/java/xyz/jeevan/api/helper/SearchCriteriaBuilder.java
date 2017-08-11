@@ -12,7 +12,7 @@ import xyz.jeevan.api.key.SearchCriteria;
 
 public final class SearchCriteriaBuilder {
 
-  public static final Map<String, String> searchrules = new HashMap<String, String>() {{
+  public static final Map<String, String> searchRules = new HashMap<String, String>() {{
     put("=", "equals");
     put(":", "like");
     put("<", "less than");
@@ -26,7 +26,7 @@ public final class SearchCriteriaBuilder {
 
   public static List<SearchCriteria> build(String criteria) {
     List<SearchCriteria> criterion = new ArrayList<>();
-    String ruleRegex = StringUtils.join(searchrules.keySet(), SYMBOL_SEPARATOR);
+    String ruleRegex = StringUtils.join(searchRules.keySet(), SYMBOL_SEPARATOR);
 
     Pattern pattern = Pattern.compile("(\\w+?)(" + ruleRegex + ")(\\w+?),");
     Matcher matcher = pattern.matcher(criteria + ",");

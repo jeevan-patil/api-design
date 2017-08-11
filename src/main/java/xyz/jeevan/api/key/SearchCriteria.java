@@ -34,7 +34,7 @@ public class SearchCriteria {
 
   @Override
   public String toString() {
-    return "SearchCriteria { " + key + " " + SearchCriteriaBuilder.searchrules.get(operation) + " "
+    return "SearchCriteria { " + key + " " + SearchCriteriaBuilder.searchRules.get(operation) + " "
         + value1 + (value2 != null ? " and " + value2 : "") + " }";
   }
 }

@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
-import xyz.jeevan.api.domain.User;
+import xyz.jeevan.api.mapper.UserMapper;
 
 public class AuthenticationTokenConverter implements Converter<DBObject, OAuth2Authentication> {
 
@@ -37,13 +37,7 @@ public class AuthenticationTokenConverter implements Converter<DBObject, OAuth2A
 
   private Object getPrincipalObject(Object principal) {
     if (principal instanceof DBObject) {
-      DBObject dbObject = (DBObject) principal;
-      User user = new User();
-      user.setId((String) dbObject.get("_id"));
-      user.setEmail((String) dbObject.get("username"));
-      user.setActive((Boolean) dbObject.get("enabled"));
-      user.setRoles(getRoles((List) dbObject.get("authorities")));
-      return user;
+      return UserMapper.mapMongoObject((DBObject) principal);
     } else {
       return principal;
     }
@@ -55,14 +49,6 @@ public class AuthenticationTokenConverter implements Converter<DBObject, OAuth2A
       grantedAuthorities.add(new SimpleGrantedAuthority(authority.get("role")));
     }
     return grantedAuthorities;
-  }
-  
-  private Set<String> getRoles(List<Map<String, String>> authorities) {
-    Set<String> roles = new HashSet<>(authorities.size());
-    for (Map<String, String> authority : authorities) {
-      roles.add(authority.get("role"));
-    }
-    return roles;
   }
 
 }

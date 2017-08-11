@@ -40,7 +40,6 @@ public class ProjectAssumptionServiceImpl implements ProjectAssumptionService {
   @Autowired
   private AssumptionRepository assumptionRepository;
 
-
   @Override
   @LogExecutionTime
   public List<ProjectAssumption> search(String projectId, String criteria, String sortBy,
