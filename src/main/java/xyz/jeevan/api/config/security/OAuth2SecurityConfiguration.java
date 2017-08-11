@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
 @EnableWebSecurity
@@ -32,8 +31,7 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-        .csrf().disable()
+    http.csrf().disable()
         .anonymous().disable()
         .authorizeRequests()
         .antMatchers("/oauth/token").permitAll();
@@ -43,11 +41,6 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
-  }
-
-  @Bean
-  public TokenStore tokenStore() {
-    return new InMemoryTokenStore();
   }
 
   @Bean

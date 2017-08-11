@@ -1,14 +1,19 @@
 package xyz.jeevan.api.domain;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import xyz.jeevan.api.annotation.DefaultField;
 
 @Document(collection = "users")
-public class User {
+public class User implements UserDetails {
 
   @Id
   @DefaultField
@@ -32,7 +37,7 @@ public class User {
 
   @Indexed
   private String organizationId;
-  private Set<String> authorities;
+  private Set<String> roles;
   private boolean active;
   private boolean locked;
   private Date createdAt;
@@ -77,6 +82,7 @@ public class User {
     this.address = address;
   }
 
+  @Override
   public String getPassword() {
     return password;
   }
@@ -93,12 +99,12 @@ public class User {
     this.organizationId = organizationId;
   }
 
-  public Set<String> getAuthorities() {
-    return authorities;
+  public Set<String> getRoles() {
+    return roles;
   }
 
-  public void setAuthorities(Set<String> authorities) {
-    this.authorities = authorities;
+  public void setRoles(Set<String> roles) {
+    this.roles = roles;
   }
 
   public boolean isActive() {
@@ -123,5 +129,41 @@ public class User {
 
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
+  }
+
+  @Override
+  public String getUsername() {
+    return this.email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return false;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return isActive();
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+    if (this.roles != null) {
+      for (String role : roles) {
+        grantedAuthorities.add(new SimpleGrantedAuthority(role));
+      }
+    }
+    return grantedAuthorities;
   }
 }

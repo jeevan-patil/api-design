@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import xyz.jeevan.api.service.security.TokenStoreService;
 
 @Configuration
 @EnableAuthorizationServer
@@ -21,7 +22,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
   private static String CLIENT_SECRET = "X5QdJUHyWX";
 
   @Autowired
-  private TokenStore tokenStore;
+  @Qualifier("tokenStore")
+  private TokenStoreService tokenStore;
 
   @Autowired
   private UserApprovalHandler userApprovalHandler;
