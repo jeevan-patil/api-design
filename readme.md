@@ -1,4 +1,4 @@
-# api-design
+# api-design             ![alt text](https://travis-ci.org/jeevan-patil/api-design.svg?branch=master)
 Sample application to study API design.
 
 - Rest API Design
