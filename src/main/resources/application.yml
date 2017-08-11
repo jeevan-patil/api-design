@@ -7,6 +7,9 @@ spring:
 security:
   basic:
     enabled: false
+  oauth2:
+    resource:
+      filter-order : 3
 
 pagination:
   organization:
@@ -29,4 +32,7 @@ logging:
   level:
     org.springframework.web : debug
 
-security.oauth2.resource.filter-order : 3
+app:
+  oauth:
+    client-id: uNjKCwt2aH
+    client-secret: X5QdJUHyWX
