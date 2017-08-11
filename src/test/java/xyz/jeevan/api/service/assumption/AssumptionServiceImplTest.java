@@ -1,6 +1,7 @@
 package xyz.jeevan.api.service.assumption;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -52,6 +53,7 @@ public class AssumptionServiceImplTest {
     when(mockAssumptionRepository.save(assumption)).thenReturn(createdAssumption);
 
     createdAssumption = cut.create(assumption);
+    assertNull(createdAssumption);
     assertNotNull(createdAssumption);
     verify(mockOrganizationRepository).findOne(assumption.getOrgId());
     verify(mockAssumptionRepository)
