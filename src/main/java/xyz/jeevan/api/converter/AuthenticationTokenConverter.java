@@ -56,14 +56,13 @@ public class AuthenticationTokenConverter implements Converter<DBObject, OAuth2A
     }
     return grantedAuthorities;
   }
-
-
+  
   private Set<String> getRoles(List<Map<String, String>> authorities) {
-    Set<String> grantedAuthorities = new HashSet<>(authorities.size());
+    Set<String> roles = new HashSet<>(authorities.size());
     for (Map<String, String> authority : authorities) {
-      grantedAuthorities.add(authority.get("role"));
+      roles.add(authority.get("role"));
     }
-    return grantedAuthorities;
+    return roles;
   }
 
 }
