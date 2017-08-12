@@ -25,6 +25,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
   @Value("${app.oauth.client-secret}")
   private String CLIENT_SECRET;
 
+  @Value("${app.oauth.access-token-validity}")
+  private int accessTokenValidity;
+
+  @Value("${app.oauth.refresh-token-validity}")
+  private int refreshTokenValidity;
+
   @Autowired
   @Qualifier("tokenStore")
   private TokenStoreService tokenStore;
@@ -44,8 +50,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         .authorities("ROLE_USER")
         .scopes("read", "write", "trust")
         .secret(CLIENT_SECRET)
-        .accessTokenValiditySeconds(120)
-        .refreshTokenValiditySeconds(600);
+        .accessTokenValiditySeconds(accessTokenValidity)
+        .refreshTokenValiditySeconds(refreshTokenValidity);
   }
 
   @Override

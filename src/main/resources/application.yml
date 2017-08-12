@@ -9,30 +9,32 @@ security:
     enabled: false
   oauth2:
     resource:
-      filter-order : 3
+      filter-order: 3
 
 pagination:
   organization:
-    default : 100
-    max : 1000
+    default: 100
+    max: 1000
   project :
-    default : 100
-    max : 1000
+    default: 100
+    max: 1000
   assumption :
-    default : 100
-    max : 1000
-  user :
-    defailt : 100
-    max : 1000
+    default: 100
+    max: 1000
+  user:
+    defailt: 100
+    max: 1000
 
 server:
   port: 9000
 
 logging:
   level:
-    org.springframework.web : debug
+    org.springframework.web: debug
 
 app:
   oauth:
     client-id: uNjKCwt2aH
     client-secret: X5QdJUHyWX
+    access-token-validity: 120
+    refresh-token-validity: 600
