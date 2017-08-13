@@ -1,6 +1,6 @@
 package xyz.jeevan.api.key;
 
-public class ProjectKey {
+public class ProjectKey implements ResourceKey {
 
   private String id;
   private String userId;
