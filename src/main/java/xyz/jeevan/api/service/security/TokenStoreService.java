@@ -64,6 +64,7 @@ public class TokenStoreService implements TokenStore {
   public void removeAccessToken(OAuth2AccessToken token) {
     AccessToken accessToken = accessTokenRepository.findByTokenId(token.getValue());
     accessTokenRepository.delete(accessToken);
+    removeRefreshToken(token.getRefreshToken());
   }
 
   @Override
