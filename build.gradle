@@ -17,6 +17,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'checkstyle'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -56,4 +57,11 @@ sourceSets {
 querydsl {
     springDataMongo = true
     querydslSourcesDir = "$buildDir/generated/source/apt/main"
+}
+
+checkstyle {
+    toolVersion = '8.1'
+    sourceSets = [sourceSets.main]
+    config = rootProject.resources.text.fromFile("config/checkstyle/google_checks.xml")
+    configProperties = ["suppressionFile": project(':').file('config/checkstyle/suppressions.xml')]
 }
