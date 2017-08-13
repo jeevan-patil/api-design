@@ -1,5 +1,6 @@
 package xyz.jeevan.api.resolver;
 
+import java.util.Arrays;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
@@ -34,13 +35,15 @@ public class ProjectKeyResolver implements HandlerMethodArgumentResolver {
     String projectId = "";
 
     HttpServletRequest httpServletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-    Map<String, String> pathVariables = (Map<String, String>) httpServletRequest
-        .getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+    if (Arrays.asList("GET", "DELETE").contains(httpServletRequest.getMethod())) {
+      Map<String, String> pathVariables = (Map<String, String>) httpServletRequest
+          .getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 
-    for (String param : pathVariables.keySet()) {
-      if (variableName.equalsIgnoreCase(param)) {
-        projectId = pathVariables.get(param);
-        break;
+      for (String param : pathVariables.keySet()) {
+        if (variableName.equalsIgnoreCase(param)) {
+          projectId = pathVariables.get(param);
+          break;
+        }
       }
     }
 
