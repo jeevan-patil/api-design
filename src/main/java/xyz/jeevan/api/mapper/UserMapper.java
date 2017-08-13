@@ -25,6 +25,8 @@ public class UserMapper {
         Object value;
         if ("roles".equalsIgnoreCase(field.getName())) {
           value = getRoles((List) dbObject.get(field.getName()));
+        } else if ("id".equalsIgnoreCase(field.getName())) {
+          value = dbObject.get("_id");
         } else {
           value = dbObject.get(field.getName());
         }

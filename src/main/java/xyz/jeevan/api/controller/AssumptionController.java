@@ -25,6 +25,7 @@ import xyz.jeevan.api.domain.ProjectAssumption;
 import xyz.jeevan.api.service.assumption.AssumptionService;
 import xyz.jeevan.api.service.assumption.ProjectAssumptionService;
 import xyz.jeevan.api.utils.APIEndpoints;
+import xyz.jeevan.api.utils.SecurityUtil;
 
 @RestController
 @Api(value = "assumptions", description = "Assumption APIs")
@@ -64,6 +65,9 @@ public class AssumptionController extends BaseController {
       @RequestParam(value = FIELDS, required = false) String fields,
       @RequestParam(value = CRITERIA, required = false) String criteria) {
     LOG.info("Fetch list of assumptions for project {}.", projectId);
+
+    SecurityUtil.loggedInUser();
+
     List<ProjectAssumption> projectAssumptions = projectAssumptionService
         .search(projectId, criteria, sortBy, sortDir);
     return new ResponseEntity<>(

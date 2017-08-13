@@ -36,5 +36,5 @@ app:
   oauth:
     client-id: uNjKCwt2aH
     client-secret: X5QdJUHyWX
-    access-token-validity: 120
-    refresh-token-validity: 600
+    access-token-validity: 1200
+    refresh-token-validity: 6000

@@ -40,14 +40,15 @@ public class ProjectController extends BaseController {
   private ProjectService projectService;
 
   /**
-   * API to fetch project by id.
+   * API to fetch project by projectId.
    */
-  @ApiOperation(value = "Fetch project by id.",
+  @ApiOperation(value = "Fetch project by projectId.",
       notes = "API to retrieve a single organization.", response = ResponseMessage.class)
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Project> getById(@PathVariable final String id, ProjectKey projectKey) {
-    LOG.info("Fetch project by id {}", id);
-    return new ResponseEntity<>(limitDataFields(projectService.getById(id), Project.class),
+  @RequestMapping(value = "/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Project> getById(@PathVariable final String projectId,
+      ProjectKey projectKey) {
+    LOG.info("Fetch project by projectId {}", projectId);
+    return new ResponseEntity<>(limitDataFields(projectService.getById(projectId), Project.class),
         HttpStatus.CREATED);
   }
 
