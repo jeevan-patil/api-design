@@ -30,7 +30,7 @@ server:
 
 logging:
   level:
-    org.springframework.web: debug
+    org.springframework.web: info
 
 app:
   oauth:
