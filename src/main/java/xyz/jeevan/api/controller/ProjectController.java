@@ -46,10 +46,12 @@ public class ProjectController extends BaseController {
       notes = "API to retrieve a single organization.", response = ResponseMessage.class)
   @RequestMapping(value = "/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Project> getById(@PathVariable final String projectId,
+      @RequestParam(value = FIELDS, required = false) String fields,
       ProjectKey projectKey) {
     LOG.info("Fetch project by projectId {}", projectId);
-    return new ResponseEntity<>(limitDataFields(projectService.getById(projectId), Project.class),
-        HttpStatus.CREATED);
+    return new ResponseEntity<>(
+        limitDataFields(projectService.getById(projectId), Project.class, fields),
+        HttpStatus.OK);
   }
 
   /**
@@ -62,7 +64,7 @@ public class ProjectController extends BaseController {
   public ResponseEntity<Project> create(@RequestBody Project project) {
     LOG.info("Saving new project with name {}.", project.getName());
     projectService.create(project);
-    return new ResponseEntity<>(limitDataFields(project, Project.class), HttpStatus.CREATED);
+    return new ResponseEntity<>(limitDataFields(project, Project.class), HttpStatus.OK);
   }
 
   @ApiOperation(value = "Fetch list of projects from an organization.", notes = "Fetch list of projects from an organization.",

@@ -47,7 +47,7 @@ public class OrganizationController extends BaseController {
   public ResponseEntity<Organization> save(@RequestBody Organization organization) {
     LOG.info("Saving new organization with name {}.", organization.getName());
     Organization savedOrg = organizationService.save(organization);
-    return new ResponseEntity<>(limitDataFields(savedOrg, Organization.class), HttpStatus.CREATED);
+    return new ResponseEntity<>(limitDataFields(savedOrg, Organization.class), HttpStatus.OK);
   }
 
   /**

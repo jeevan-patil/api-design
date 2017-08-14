@@ -35,7 +35,7 @@ public class UserController extends BaseController {
   public ResponseEntity<User> create(@RequestBody User user) {
     LOG.info("Saving new user with email {}.", user.getEmail());
     userService.create(user);
-    return new ResponseEntity<>(user, HttpStatus.CREATED);
+    return new ResponseEntity<>(user, HttpStatus.OK);
   }
 
   @ApiOperation(value = "Fetch user by id.", notes = "API to fetch user by id.",

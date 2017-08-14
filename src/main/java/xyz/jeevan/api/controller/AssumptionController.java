@@ -82,7 +82,7 @@ public class AssumptionController extends BaseController {
   public ResponseEntity<Assumption> create(@RequestBody Assumption assumption) {
     LOG.info("Saving new assumption with label {}.", assumption.getLabel());
     assumption = assumptionService.create(assumption);
-    return new ResponseEntity<>(limitDataFields(assumption, Assumption.class), HttpStatus.CREATED);
+    return new ResponseEntity<>(limitDataFields(assumption, Assumption.class), HttpStatus.OK);
   }
 
 }
