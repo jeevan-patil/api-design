@@ -8,6 +8,9 @@ import xyz.jeevan.api.domain.Project;
 import xyz.jeevan.api.event.EntityCreatedEvent;
 import xyz.jeevan.api.service.assumption.ProjectAssumptionService;
 
+/**
+ * Send notifications or perform some other actions whenever any new entity is created.
+ */
 @Component
 public class EntityCreatedEventListener implements ApplicationListener<EntityCreatedEvent> {
 
